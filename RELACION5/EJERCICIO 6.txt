@@ -1,0 +1,195 @@
+6. Sea L = {wcw : w ∈ {0, 1}∗}, Demostrar que L se puede reconocer en espacio log(n).
+
+Podemos buscar otro problema que sea O(log(n)) del que partir y, en este caso, lo haremos de aquel que reconoce palindromos
+Este problema esta sacado de la diapositiva 63/96 del pdf de teoria del Tema3.
+
+
+ ___ ___ ___ ___ ___ ___ ___
+| 1 | 1 | 0 | c | 1 | 1 | 0 |  Entrada
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+|   |   |   |   |   |   |   |  Posicion que se esta comprobando (binario) N2
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+|   |   |   |   |   |   |   |  Contador en binario para encontrar posiciones N3
+ --- --- --- --- --- --- --- 
+
+
+- Ponemos un 1 en las segunda cinta (N2), Ponemos un 1 en la tercera cinta (N3)
+- Nos ponemos al principio de la primera cinta
+- Repetir:
+	- Ponemos un 1 en la tercera cinta y nos ponemos al principio de la primera cinta
+	- Repetir: Incrementar N3 en 1, mover a la derecha en la primera, hasta N2 = N3
+	- Copiar el simbolo de la primera cinta en memoria
+		- Si el simbolo en memoria es 'c' Aceptar
+		- en otro caso
+			- Poner 1 en la tercera cinta (N3 = 1), ir a la posicion de 'c' de la primera cinta
+			- Repetir: Incrementar N3 en 1, mover derecha en la primera, hasta N2 = N3
+			- Si el simbolo en primera cinta es distinto al de memoria: Rechazar
+			- Incrementar N2 en 1 
+
+Los numeros N2 y N3 necesitan log(n) casillas donde n es la longitud del numero que hay en la primera cinta antes de la 'c'
+
+
+**********************************************************************************************
+ ___ ___ ___ ___ ___ ___ ___
+| 1 | 1 | 0 | c | 1 | 1 | 0 |  Entrada
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+|   |   |   |   |   |   |   |  Posicion que se esta comprobando (binario) N2
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+|   |   |   |   |   |   |   |  Contador en binario para encontrar posiciones N3
+ --- --- --- --- --- --- --- 
+
+ **********************************************************************************************
+ **********************************************************************************************
+  |
+  v
+ ___ ___ ___ ___ ___ ___ ___
+| 1 | 1 | 0 | c | 1 | 1 | 0 |  Entrada
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+| 1 |   |   |   |   |   |   |  Posicion que se esta comprobando (binario) N2
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+| 1 |   |   |   |   |   |   |  Contador en binario para encontrar posiciones N3
+ --- --- --- --- --- --- --- 
+
+ **********************************************************************************************
+ **********************************************************************************************
+  |
+  v
+ ___ ___ ___ ___ ___ ___ ___
+| 1 | 1 | 0 | c | 1 | 1 | 0 |  Entrada
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+| 1 |   |   |   |   |   |   |  Posicion que se esta comprobando (binario) N2
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+| 1 |   |   |   |   |   |   |  Contador en binario para encontrar posiciones N3
+ --- --- --- --- --- --- --- 
+
+ Memoria: 1
+
+ **********************************************************************************************
+ **********************************************************************************************
+              |
+              v
+ ___ ___ ___ ___ ___ ___ ___
+| 1 | 1 | 0 | c | 1 | 1 | 0 |  Entrada
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+| 1 |   |   |   |   |   |   |  Posicion que se esta comprobando (binario) N2
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+| 1 |   |   |   |   |   |   |  Contador en binario para encontrar posiciones N3
+ --- --- --- --- --- --- --- 
+
+ Memoria: 1
+
+ **********************************************************************************************
+ **********************************************************************************************
+                  |
+                  v
+ ___ ___ ___ ___ ___ ___ ___
+| 1 | 1 | 0 | c | 1 | 1 | 0 |  Entrada
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+| 1 |   |   |   |   |   |   |  Posicion que se esta comprobando (binario) N2
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+| 1 |   |   |   |   |   |   |  Contador en binario para encontrar posiciones N3
+ --- --- --- --- --- --- --- 
+
+ Memoria: 1
+ 
+ LOS SIMBOLOS SON IGUALES, INCREMENTAMOS N2 Y VOLVEMOS A EMPEZAR
+
+ **********************************************************************************************
+ **********************************************************************************************
+  |
+  v
+ ___ ___ ___ ___ ___ ___ ___
+| 1 | 1 | 0 | c | 1 | 1 | 0 |  Entrada
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+| 1 | 0 |   |   |   |   |   |  Posicion que se esta comprobando (binario) N2
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+| 1 |   |   |   |   |   |   |  Contador en binario para encontrar posiciones N3
+ --- --- --- --- --- --- --- 
+
+ Memoria: 1
+
+ **********************************************************************************************
+ **********************************************************************************************
+      |
+      v
+ ___ ___ ___ ___ ___ ___ ___
+| 1 | 1 | 0 | c | 1 | 1 | 0 |  Entrada
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+| 1 | 0 |   |   |   |   |   |  Posicion que se esta comprobando (binario) N2
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+| 1 | 0 |   |   |   |   |   |  Contador en binario para encontrar posiciones N3
+ --- --- --- --- --- --- --- 
+
+ Memoria: 1
+
+ **********************************************************************************************
+ **********************************************************************************************
+              |
+              v
+ ___ ___ ___ ___ ___ ___ ___
+| 1 | 1 | 0 | c | 1 | 1 | 0 |  Entrada
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+| 1 | 0 |   |   |   |   |   |  Posicion que se esta comprobando (binario) N2
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+| 1 |   |   |   |   |   |   |  Contador en binario para encontrar posiciones N3
+ --- --- --- --- --- --- --- 
+
+ Memoria: 1
+
+ **********************************************************************************************
+ **********************************************************************************************
+                      |
+                      v
+ ___ ___ ___ ___ ___ ___ ___
+| 1 | 1 | 0 | c | 1 | 1 | 0 |  Entrada
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+| 1 | 0 |   |   |   |   |   |  Posicion que se esta comprobando (binario) N2
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+| 1 | 0 |   |   |   |   |   |  Contador en binario para encontrar posiciones N3
+ --- --- --- --- --- --- --- 
+
+ Memoria: 1
+
+ **********************************************************************************************
+ .
+ .
+ .
+ .
+ **********************************************************************************************
+              |
+              v
+ ___ ___ ___ ___ ___ ___ ___
+| 1 | 1 | 0 | c | 1 | 1 | 0 |  Entrada
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+| 1 | 0 | 0 |   |   |   |   |  Posicion que se esta comprobando (binario) N2
+ --- --- --- --- --- --- --- 
+ ___ ___ ___ ___ ___ ___ ___
+| 1 | 0 | 0 |   |   |   |   |  Contador en binario para encontrar posiciones N3
+ --- --- --- --- --- --- --- 
+
+ Memoria: c
+
+ En memoria esta 'c', por lo que aceptamos
+
+ **********************************************************************************************

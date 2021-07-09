@@ -1,0 +1,1 @@
+Por contrarecíproco. Supongo que P = NP y vamos a probar que NP = CoNP. Como P = NP, tendremos que CoP = CoNP y sabemos que P = CoP, luego NP = CoNP.

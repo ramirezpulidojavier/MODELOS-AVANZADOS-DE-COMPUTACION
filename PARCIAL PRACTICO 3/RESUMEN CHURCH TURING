@@ -1,0 +1,75 @@
+Post-Turing:
+	- Print x
+	- If a goto L
+	- Right/Left
+	- HALT
+
+Programas con variables:
+	- A <- aA    // A <- Aa
+	- A <- A-
+	- A <- -A (Macro de la pagina 44/59 del Tema 2)
+	- IF A ENDS/STARTS a GOTO L
+	- IF A!=epsilon GOTO L
+	- VARIABLE1 <- VARIABLE2 (Es una macro para asignar el valor de una variable a otra)
+	- HALT
+
+Programas con variables numericas:
+	- A <- A+1
+	- A <- A-1
+	- IF A!=0 GOTO L 
+	- HALT
+
+
+	
+
+PROGRAMAS QUE EXISTEN EN LAS DIAPOSITIVAS:
+	- Programas Post-Turing:
+		- Añadir 10 al principio de la palabra
+		- Escribir ab al final de la palabra y volver al principio de la palabra
+		- Sustituir 0s por blanco 
+		- Convertir a^n en a^n#a^n
+	- Programas con variables:
+		- Copiar una entrada X en una salida Y
+		- Sumar 1 (entrada n y salida n+1)
+		- Restar 1 ( n− 1 si n > 1 y 0 si n = 1)
+	- Programas con variables numericas:
+		- Problema con entrada X = n y calcula Y = n excepto para X = 0 que Y = 1.
+
+
+
+
+MACROS QUE EXISTEN EN LAS DIAPOSITIVAS:
+	- Programas Post-Turing:
+		- RIGHT TO NEXT BLANK (Esquiva hasta llegar al siguiente blanco)
+		- MOVE BLOCK RIGHT (Mueve la cadena una posicion a la derecha)
+		- ERASE BLOCK (Pone blancos hasta el final de la palabra)
+	- Programas con variables:
+		- IF V!=epsilon GOTO L  
+		- V <- epsilon (vacia una variable)
+		- GOTO L (Ir a un conjunto de instrucciones sin necesidad de una condicion)
+	- Programas con variables numericas:
+		- V <- 0
+		- GOTO L 
+
+
+EJERCICIOS QUE TENEMOS HECHOS DE LA RELACION 3:
+	- POST - TURING:
+		- f(u) = u^-1
+		- f(u) = u + 1 (u -> numero en binario)
+		- Comprobar si u es una subcadena de v para la entrada ucv (lo tenemos en foto de miguel)
+		- f(u) = uu^-1 (EXAMEN DEL MIERCOLES)
+	-Programas con variables:
+		- Concatenar 2 cadenas 
+		- Contar las veces que aparece una subcadena X1 en otra subcadena X2 (Salida en numero binario). Lo tenemos en una foto de miguel 
+		- Aceptar palindromos
+		- Formar una subcadena con los caracteres que se encuentren las posiciones impares de u y en el mismo orden
+		- Dados u1 y u2, calcular Z(u) = Z(u1) + Z(u2)
+		- 0^n1^n n>0 
+	-Programas con variables numericas:
+		- f(x1,x2) = x1+x2 
+		- f(x1,x2) = x1*x2
+		- f(x) = 1 si es par y f(x) = 0 si es impar
+		- f(x) = 1 si es primo y f(x) = 0 si no es primo (ejer 3 MACROS: IF X < Y GOTO Z /// Z <- X % Y)
+		- f(x) = Z(C(x)-) (ejer 4 MACROS: X <- n  //// Q,R <- X1/X2)
+		- f(x) = Z(aiC(x))
+

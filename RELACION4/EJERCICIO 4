@@ -1,0 +1,85 @@
+4. Escribir un programa con variables numéricas que calcule f(x) = y donde y = Z(C(x)−)
+donde Z y C son las codificaciones sobre un alfabeto de n símbolos
+
+
+MACRO: X <- n        --> Tener en X el valor de n 
+X <- 0
+X <- X+1
+  ...      --> Repetimos n veces
+X <- X+1
+
+
+MACRO DIVISÓN ENTERA: Q,R <- X1/X2    (CON X2 > 0)
+
+Planteamos la división como el número de veces que somos capaces de quitarle X2 a X1, es decir
+Si nuestro X2 = 3 y nuestro X1 = 6, el resultado del cociente es 2 ya que podemos hacer X1-X2 dos veces 
+El resto a su vez valdrá 0 ya que X1 tambien se ha reducido a 0
+
+
+U <- X2           --> Tendremos el valor del divisor (lo iremos decrementando hasta que llegue a 0 y ahi poder aumentar el valor del cociente)
+R <- X1           --> Tendremos el valor del resto de la división (por ello su valor será el dividendo)
+Q <- 0            --> Tendremos el valor del cociente de la division 
+ 
+IF R < X2 GOTO H    --> Si X1 < X2 es porque el resto es X1
+
+[A] U <- U-1             
+	R <- R-1
+	IF U != 0 GOTO A
+	Q <- Q+1               --> Si U = 0 hemos realizado la primera division por lo que aumentamos en 1 el cociente
+	IF R < X2 GOTO H       --> De nuevo si el resto es menor que X2, el resto es R
+	U <- X2                --> En otro caso tenemos que restar X2 de nuevo
+	GOTO A
+
+[H] HALT
+
+
+Ejemplo de divsión exacta:
+
+X1 = 6
+X2 = 3
+
+U = 3    U = 2    U = 1    U = 0    U = 3    U = 2    U = 1    U = 0
+R = 6    R = 5    R = 4    R = 3    R = 3    R = 2    R = 1    R = 0
+Q = 0    Q = 0    Q = 0    Q = 0    Q = 1    Q = 1    Q = 1    Q = 2
+
+
+Ejemplo de división que no es exacta:
+
+X1 = 5
+X2 = 2
+
+U = 2    U = 1    U = 0    U = 2    U = 1    U = 0      
+R = 5    R = 4    R = 3    R = 3    R = 2    R = 1        
+Q = 0    Q = 0    Q = 0    Q = 1    Q = 1    Q = 1        
+
+
+
+SI LA DIVISION NO ES EXACTA Z(C(x)-) = x/n (Q)         SI LA DIVISIONE ES EXACTA Z(C(x)-) = x/n - 1 (Q-1)
+
+U <- n              --> Aplicamos la macro
+Q,R <- X/U          --> Aplicamos la macro
+IF R != 0 GOTO H    --> Si es división no exacta devolvemos Q
+Q <- Q - 1          --> Si es división exacta devolvemos Q-1
+
+[H] HALT
+ 
+
+Ejemplo de divisón que no es exacta:
+
+U = 3
+X = 4
+
+Q = 1
+R = 1
+
+Ejemplo de divisón que es exacta:
+
+U = 4
+X = 4
+
+Q = 1
+R = 0
+
+Q = 0
+
+

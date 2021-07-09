@@ -1,0 +1,127 @@
+12. Consideremos el problema anterior, pero ahora con dos tipos de paréntesis (, ) y [ , ].
+Demostrar que determinar si están bien escritos también está en L. Aquí ([]()) está permitido, pero ([)] no.
+Demostrar que si la entrada se lee de izquierda a derecha sin volver hacia atrás, requieren O(n) de memoria.
+
+
+
+Este problema se puede resolver con una MT determinista con dos cintas:
+	1º cinta: Entrada. Solo leerme en esta cinta.
+    2º cinta: Al principio vacía, tendrá tantas X como '(' y tantas Y como '['
+
+Cada vez que encontremos '(' en la cinta escribimos X en la segunda. Cada vez que encontremos ')' quitamos una X de la segunda cinta, pero antes de quitarla, comprobamos si la segunda cinta acaba en X. Si no acaba en X y queremos quitar una X, no están emparejados y por tanto, rechazamos. Lo mismo ocurre con el corchete, pues escribiremos en la segunda cinta una Y por cada '[' que leamos de la entrada y quitaremos una Y de la segunda cinta por cada ']' que encontremos, pero antes de quitar la Y de la segunda cinta tenemos que comprobar que acabe en Y, pues de lo contrario no están emparejados y rechazamos.
+
+Si llegamos al final de la 1º cinta y la 2º cinta contiene X o Y o ambas, rechazamos, si es vacia, aceptamos.
+
+MT:
+    Mientras el simbolo de la cinta 1 != #
+        Si el simbolo de la cinta 1 == '('
+            Escribimos X en la cinta 2
+        
+        Si el simbolo de la cinta 1 == '['
+        	Escribimos Y en la cinta 2
+
+        Si el simbolo de la cinta 1 == ')'
+            Si la cinta 2 no acaba en X
+                Rechazamos
+            Si acaba en X
+                Quitamos la X la cinta 2
+
+        Si el simbolo de la cinta 1 == ']'
+            Si la cinta 2 no acaba en Y
+                Rechazamos
+            Si acaba en Y
+                Quitamos la Y la cinta 2
+
+    Si la cinta 2 == vacio
+        Aceptamos
+    Si no
+        Rechazamos
+
+
+Ejemplo que NO ESTÁ: ([)]
+
+    |
+N1: ([)]
+N2: 
+
+Leemos ( así que ponemos una X en la segunda cinta
+
+     |
+N1: ([)]
+N2: X
+
+Leemos [ así que ponemos una Y en la segunda cinta
+
+      |
+N1: ([)]
+N2: XY
+
+Leemos ) así que vamos a quitar una X de la segunda cinta, pero como la segunda cinta no acaba en X rechazamos (línea 24 MT)
+
+
+
+
+Ejemplo que ESTÁ: ([]())
+
+    |
+N1: ([]()) 
+N2:
+
+Leemos ( así que ponemos una X en la segunda cinta
+
+     |
+N1: ([]()) 
+N2: X
+
+Leemos [ así que ponemos una Y en la segunda cinta
+
+      |
+N1: ([]()) 
+N2: XY
+
+Leemos ] así que vamos a quitar una Y de la segunda cinta y como la segunda cinta acaba en Y podemos hacerlo 
+
+       |
+N1: ([]()) 
+N2: X
+
+Leemos ( así que ponemos una X en la segunda cinta
+
+        | 
+N1: ([]()) 
+N2: XX
+
+Leemos ) así que vamos a quitar una X de la segunda cinta y como la segunda cinta acaba en X podemos hacerlo 
+
+         |
+N1: ([]()) 
+N2: X
+
+Leemos ) así que vamos a quitar una X de la segunda cinta y como la segunda cinta acaba en X podemos hacerlo 
+
+          |
+N1: ([]()) 
+N2:
+
+Como hemos acabado de leer la entrada de N1 y N2 es vacia ===> ACEPTAMOS  (línea 35 de la MT)
+
+
+
+Cada sucesion de parentesis y corchetes que abren solo se emaprejan con la misma sucesion de parentesis y corchetes que cierran
+
+Por ejemplo 1 parentesis y 2 corchetes que abren necesitan 2 corchetes y 1 parentesis que cierre
+
+En una longitud de cadena de n tenemos n/2 que abren y n/2 que cierran
+
+Si tengo n/2 = 3, tenemos 2^3 combinaciones posibles de apertura y cierre
+
+(((, (([, [((, [[[.......
+
+Si hay n/2 corchetes o paréntesis que abren, hay en total 2^(n/2) situaciones distintas cuando hemos leido la mitad de la palabra 
+y no podemos volver hacia atras
+
+Si el alfabeto tiene k simbolos y quiero representar 2^(n/2) situaciones distintas, tenemos K^m simbolos
+
+Si igualamos K^m = 2^(n/2), necesitamos log en base K de 2^(n/2) = n/2*log_K(2)
+
+Necesito guardar en memoria log_k(2)/2 * n, y como log_k(2)/2 es una constante, tenemos complejidad O(n)

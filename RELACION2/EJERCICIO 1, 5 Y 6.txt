@@ -1,0 +1,73 @@
+1. Sobre el alfabeto A = {a,b,c}, calcular las palabras C(143) y C(100).
+
+a1 = a,      a2 = b,      a3 = c,     n=3
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+C(143) -> 143/3=47 Resto: 2 (al no ser divisible n entre m) -> i=2 (el resto) p=47 (el cociente)
+       -> C(47) * a2 = C(47) * b -> 47/3=15 Resto: 2 (al no ser divisible n entre m) -> i=2 (el resto) p=15 (el cociente)
+                                 -> C(15) * a2 * b = C(15) * b * b -> 15/3=5 Resto: 0 (al ser divisible n entre m) -> i=n=3 p=4 (el cociente - 1)
+                                                                   -> C(4) * a3 * b * b = C(4) * c * b * b -> 4/3=1 Resto:1 (al no ser divisible n entre m) -> i=1 (el resto) p=1 (el cociente)
+                                                                                                           -> C(1) * a1 * c * b * b = C(1) * a * c * b * b -> 1/3=0 Resto: 1 (al no ser divisible n entre m) -> i=1 (el resto) p=0 (el cociente)
+                                                                                                                                                           -> C(0) * a1 * a * c * b * b = a*a*c*b*b
+C(143) = a*a*b*b*c
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+c(100) -> 100/3=33 Resto: 1 (al no ser divisible n entre m) -> i=1 (el resto) p=33 (el cociente)
+       -> C(33) * a1 = C(33) * a -> 33/3=11 Resto:0 -> i=n=3 p=10 (cociente - 1)
+                                 -> C(10) * a3 * a = C(10) * c * a -> 10/3=3 Resto:1 -> i=1 p=3
+                                                                   -> C(3) * a1 * c * a = C(3) * a * c * a -> 3/3=1 Resto:0 -> i=n=3 p=0
+													   -> C(0) * a3 * a * c * a = c * a * c * a
+C(100) = c*a*c*a
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  
+
+
+5. Demostrar que el problema de la parada: determinar el conjunto de parejas (M, w) tales que la MT M para cuando tiene a w como entrada es r.e. pero no recursivo
+
+Un lenguaje que es recursivamente enumerable podemos decir que se trata de un problema semidecidible en el que existe una MT que acepta las palabras del lenguaje.
+Para estas palabras del lenguaje la MT puede rechazar o ciclar. Es decir, existe un algoritmo que responde correctamente las entradas cuya salida es ’SI’,
+pero para las entradas de ’NO’ el algoritmo puede decir ’NO’ o ciclar.
+
+Diremos por tanto que no es un problema decidible porque si eso fuera así, existiría un programa que lo resuelve y ciclaría siempre.
+Por ejemplo, si tenemos la función parada(M, w) que resuelve el problema bajo un programa que permite llamarse a sí mismo, este ciclaría siempre y por tanto no sería decicible.
+
+
+
+6a.
+
+Tendríamos tres cintas.
+En la primera de ellas, el número en binario (empezando por 0)
+En la segunda cinta, copiamos el número de la primera
+En la tercera cinta tendremos el resultado de multiplicar el número en binario de la primera cinta y la segunda cinta (un número por sí mismo)
+Una vez hecho esto, en la primera cinta aumentaremos en 1 el número
+En la segunda cinta, por tanto, tendremos el mismo número que en la primera cinta (porque se copia de nuevo)
+Volvemos a multiplicar ambos números y lo guardamos en la tercera cinta detrás del número escrito previamente.
+(Así sucesivamente)
+
+La MT tendría una subrutina que aumenta en 1 el número de la primera cinta,
+una subrutina que copie el número de arriba en la segunda cinta y
+una subrutina que multiplique ambos números (esta subrutina tendrá tantas pistas como dígitos tenga el número de la primera cinta)
+
+
+
+6b.
+
+Tendríamos cinco cintas.
+En la primera de ellas, el número en binario (empezando por 1)
+En la segunda cinta, copiamos el número de la primera
+En la tercera cinta, tendremos el resultado de dividir el número de la primera cinta y la segunda cinta (por el mismo)
+Cada vez que dividimos, decrementamos en una unidad el número de la segunda cinta
+En la cuarta cinta, un contador que empieza en 0 y que va incrementando su valor cada vez que el número sea divisible (que la división tenga resto 0)
+En la quinta cinta, copiamos el número de la primera cinta siempre y cuando el contador de la cuarta cinta sea exactamente 2 (esto confirma que el número de la primera cinta es primo)
+Una vez hecho esto, en la primera cinta aumentamos en 1 el número
+En la segunda cinta, por tanto, tendremos el mismo número que en la primera cinta (porque se copia de nuevo)
+Volvemos a repetir el proceso guardando en la quinta cinta el número de la primera detrás del número escrito previamente (siempre que sea primo).
+
+La MT tendrá una subrutina que aumenta en 1 el número de la primera cinta,
+una subrutina que decrementa en 1 el número de la segunada cinta,
+una subrutina que realice la división entre el número de la primera cinta y el de la segunda cinta,
+una subrutina que incremente en 1 el contador de la cuarta cinta cada vez que la división sea exacta,
+y una subrutina que copie el número de la primera cinta en la quinta cinta cuando el contador de la cuarta cinta sea exactamente 2 (lo cual indica que es primo).
+
+

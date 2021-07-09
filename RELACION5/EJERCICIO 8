@@ -1,0 +1,51 @@
+Ejercicio 8. Demostrar que si L esta en NP, entonces L* también está en NP.
+
+Partimos de un algoritmo que resuelve el problema de si x pertenece a L ----> ALGL(x)
+
+Tenemos que hacer un algoritmo polinómico que resuelva el problema de si x pertence a L* ---> ALGLESTRELLA(x)       x e L
+
+Si x es vacío 
+	Return TRUE (Acepta)      //Porque es una palabra de L*
+Si |x| == 1                   //Si la longitud de x es 1
+	Return ALGL(x)            //Esta pertenece a L* si y solo si la palabra se puede descomponer en una sucesion finita de palabras que pertencen a L
+Else                          //Si la palabra es de longitud 2 o mas
+	Decido A o B de forma no determinista      //Decido si la palabra pertenece a L o divido a x en dos partes comprobando que una pertenezca a L y otra a L*
+
+Si A                       //La palabra es de L
+	Return ALGL(x)
+Si B                      //Vamos a descomponer la palabra en dos partes 
+	Se divide x de forma no determinista en x1 y x2        |x1| >= 1 ,  |x2| >= 1
+	f = ALGL(x1)	        //Compruebo que x1 pertenezca a L
+	s = ALGLESTRELLA(x2)    //Compruebo que x2 pertenezca a L*
+	Si f y s                //Si se dan ambas comprobaciones
+		Return True         
+	Else
+		Return False
+
+
+Las palabras de L* o están en L o se pueden descomponer en dos partes, una que esta en L y otra que esta en L*
+
+
+La complejidad de este algoritmo es:
+Suponiendo que la complejidad de ALGL(x) es O(n^k)
+
+
+Si comenzamos con una palabra de longitud n, podemos llamar a ALGLESTRELLA(x) de forma recursiva n veces a lo mucho 
+y cada llamada la hacemos con palabras de longitud menor:
+
+x1 tiene como minimo longitud 1
+x2 tiene longitud n - 1
+
+En la segunda llamada lo haria con n-2
+En la tercera llamada con n-3... y asi sucesivamente hasta longitud 1
+
+Por tanto el numero maximo de llamadas que hago es n y cada llama tiene longitudes de palabra menores que la anterior.
+
+Si partimos de una palabra que no tiene complejidad ALGLESTRELLA tenemos O(n^k) entonces el orden total es de n^k para la parte de ALG(x) y n para la parte de ALGLESTRELLA(x) por lo que el orden total es de O(n^k * n) = O(n^k+1)
+
+La complejidad es una funcion f(n) = n^k + f(n-1)
+
+
+
+
+

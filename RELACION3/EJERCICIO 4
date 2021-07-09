@@ -1,0 +1,42 @@
+4. Construir un programa con variables que concatene dos cadenas sobre {0, 1}. Se supone
+que ambas cadenas están en las variables X1 y X2 y la salida en la variable Y.
+
+[A] IF X2 ENDS i GOTO Ai   -> Primero queremos copiar X2 en Y 
+	IF X1 ENDS i GOTO Bi   -> Despues de copiar X2 vamos a copiar X1 delante de X2 en Y
+	HALT                   -> Acabamos
+
+[Ai]  Y <- iY              -> Vamos añadiendo el elemento i de X2 en Y (por delante)
+	 X2 <- X2-             -> Y lo eliminamos de la variable X2
+	 GOTO A                -> Volvemos a [A] 
+
+[B]  Y <- iY               -> Vamos añadiendo el elemento i de X1 en Y (por delante)
+	X1 <- X1-              -> Y lo eliminamos de la variable X1
+	GOTO A                 -> Volvemos a [A] 
+
+
+EJEMPLO:
+
+X1 ----> 1 1 0 0 1
+X2 ----> 0 0 1 1 0    
+
+X2 -> 0 0 1 1 
+Y -> 0
+
+X2 -> 0 0 1
+Y -> 1 0
+
+X2 -> 0 0
+Y -> 1 1 0
+
+X2 -> 0
+Y -> 0 1 1 0
+
+X2 ->
+Y -> 0 0 1 1 0 
+
+
+Hacemos lo mismo con X1:
+
+X1 ->
+X2 ->
+Y -> 1 1 0 0 1 0 0 1 1 0

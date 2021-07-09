@@ -1,0 +1,71 @@
+7. Demostrar que si L esta en P, entonces L* también esté en P
+
+
+Contamos con que tenemos un algoritmo L(x) para decir que L es polinomico y ahora queremos demostrar que L* tambien pertenece a P.  
+
+Una palabra va a estar en L* si esa palabra esta en L o si sus descomposiciones estan en L*. Por ello, haremos un algoritmo determinista que compruebe de forma ordenada las 2^(n-1) descomposiciones que hay.
+
+El motivo por el que una palabra puede tiene 2^(n-1) descomposiciones es porque, por ejemplo, para una palabra de longitud 4, hay 3 puntos de corte:
+
+1_0_0_1
+ ^ ^ ^
+ | | |
+
+
+y estos pueden ser seleccionados o no:
+
+1.- 1001
+2.- 1 | 001
+3.- 10 | 01
+4.- 100 | 1
+5.- 1 | 0 | 01
+6.- 1 | 00 | 1
+7.- 1 0 | 0 | 1
+8.- 1 | 0 | 0 | 1
+
+----------------------------------------------------------------------
+
+ALGORITMO L_ASTERISCO(x)
+- Si x es una entrada vacia : ACEPTA
+- Cualquier otro caso:
+	- Si alguna de las descomposiciones de x cumple que todos sus elementos pertenecen a L: ACEPTA
+	- En otro caso: RECHAZA
+
+----------------------------------------------------------------------
+
+La complejidad del algoritmo seria O(2^n) ya que se ejecuta tantas veces como descomposiciones en k palabras haya de una palabra de longitud n.
+
+
+El problema es que se pueden repetir descomposiciones y estar haciendo comprobaciones innecesarias, lo que conlleva un trabajo alto.
+
+Por ejemplo, si tenemos una palabra w de longitud |w| = n ( w = a(1)...a(n) ), esta puede ser descompuesta en 
+													w[i,j] = a(i)...a(j) 
+y lo que comprobamos es que esa w[i,j] pertenezca a L*. Se hace uso del algoritmo de Cocke-Younger-Kasami.   
+
+Para el caso en el que i = j, w[i,j] es lo mismo que w[i,i] o w[j,j], que es el equivalente al simbolo que se encuentra en la posicion i o en la posicion j. De esa forma, w[i,i] pertenece a L* si a(i) pertenece a L. Es la forma de comprobar si todas las cadenas w[i,i] pertenecen a L.
+
+Ahora queremos saber como comprobar si una cadena w[i,i+1] pertenece a L*. Esa cadena pertenece a L* si a(i)a(i+1) pertenece a L o si puedo descomponerla en dos partes tal que cada una de ellas perteneceza a L*.
+
+Por orden, primero comprobariamos que para todas las parejas [i,i], w[i,i] pertenezca a L* o L. Lo siguiente seria comprobar las parejas [i, i+1] que, si a(i)a(i+1) estan en L, w[i,i+1] estara en L* y si no, descomponemos y miramos si a(i) esta en L* y si a(i+1) tambien; luego todos los [i, i+j] y por ultimo [i, i+j+1].
+
+Este ultimo seria w = a(i)...a(i+j+1) que pertenece a L* si:
+	- a(i)...a(i+j+1) pertenece a L ó
+	- Se puede separar en dos partes que sean a(i)...a(i+k)//a(i+k+1)...a(i+j+1). Si para algun k, tanto la primera parte como la segunda pertenecen a L*, la descomposicion w[i,i+j+1] pertenecera tambien.
+
+El algoritmo que nos dice si pertenece a L* tendria una matriz 'Memoria' de i filas y j columnas que empiece entera en 0.
+
+Empezamos en j = 0
+Repetir j + 1 hasta que j == n
+ 	Empezamos en i = 0
+ 	Repetir i + 1 hasta que i == n-j+1
+ 		- Comprobamos si ai...a(i+j) pertenece a L. (ALGORITMO L(x))
+ 			- Si es que si, Memoria[i,j] = 1
+ 		- Para cada k = 0 hasta k = i - j - 1
+ 			Si Memoria[i, i+k] = 1 & Memoria[i+k+1, j] = 1 entonces
+ 				Memoria[i,j] = 1
+
+
+Al terminar el algoritmo, si Memoria[1,n] es 1, la palabra esta en L*
+
+Este algoritmo tiene 3 bucles anidados que lo hacen de O(n^3) y en él se llama al algoritmo L(x) que es n^k, por lo que finalmente en tiempo polinomico (O(n^(k+3))) se puede comprobar si una palabra esta en L*. De esta forma, L* esta en P.
+

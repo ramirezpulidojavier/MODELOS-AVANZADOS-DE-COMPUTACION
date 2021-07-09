@@ -1,0 +1,68 @@
+1. Construir un programa con variables numéricas que calcule f(x1, x2) = x1 + x2 y otro que calcule f(x1, x2) = x1*x2
+
+f(x1, x2) = x1 + x2:
+
+U <- X1                   --> Primer valor y en el que haremos la suma
+V <- X2                   --> Segundo valor que ira disminuyendo hasta llegar a 0 e incrementando el primer valor 
+IF X2 != 0 GOTO SUMA      --> Si en X2 tenemos un 0 devolvemos X1 ya que 0 + X1 sería X1
+GOTO ACEPTACION                 
+
+
+[SUMA] U <- U + 1            --> Sumamos 1 a la variable U  (que contiene X1)
+	   V <- V - 1            --> Restamos 1 a la variable V  (que contiene X2)
+	   IF V != 0 GOTO SUMA   --> Si V es 0 devolvemos X1
+	   GOTO ACEPTACION
+
+
+[ACEPTACION]   Y <- U     --> Copiamos en Y U1 ya que es donde tenemos la suma 
+	           HALT       --> Aceptamos
+
+
+Ejemplo:
+
+X1 = 4
+X2 = 2
+
+U = 4
+V = 2
+
+U = 5
+V = 1
+
+U = 6
+V = 0
+
+Y = U = 6
+
+
+
+f(x1, x2) = x1*x2:
+
+U <- 0                       --> U empieza con el valor 0 (en ella tendremos el resultado de la multiplicacion)
+V <- X2                      --> En V copiamos el valor de X2 (que sera como una especie de contador que disminuirá a medida que hagamos el producto)
+IF V != 0 GOTO MULTI         --> Si multiplicamos por 0 directamente devolvemos un 0 
+GOTO ACEPTACION
+
+[MULTI] U <- U + X1           --> Sumo X1 consigo mismo tantas veces como X2    (esto es equivalente a la multiplicacion)
+	V <- V - 1                --> Por cada suma consigo mismo disminuimos el valor de V (que contiene X2)
+	IF V != 0 GOTO MULTI      --> Hasta que tengamos V en 0
+
+[ACEPTACION] Y <- U       --> Copiamos en Y el resultado de la multiplicacion
+	HALT                  --> Aceptamos
+
+
+Ejemplo:
+
+X1 = 3
+X2 = 2
+
+U = 0
+V = 3
+
+U = 0+3 = 3
+V = 1
+
+U = 3+3 = 6
+V = 0
+
+Y = U = 6

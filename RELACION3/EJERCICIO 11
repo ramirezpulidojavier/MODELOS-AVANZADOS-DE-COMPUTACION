@@ -1,0 +1,25 @@
+-----------------------RELACION 3-----------------------------
+
+EJERCICIO 11:
+	
+		LEFT
+	[C]	RIGHT
+		IF # GOTO E
+		IF 0 GOTO A
+		IF 1 GOTO C
+	[A]	PRINT #
+		IF # GOTO C
+	[E]	HALT
+
+	//ESTE PROGRAMA SI LEE UNA PALABRA EN BLANCO TERMINA Y ACEPTA, SI LEE UN 1 ESQUIVA HACIA LA DERECHA Y SI LEE UN 0, PONE UN 
+	//BLANCO Y AVANZA HACIA LA DERECHA
+
+	Maquina de Turing -> Convierte en # cada 0 de la palabra
+
+	M = ({q0, qf}, {0,1}, {0,1,#}, S, q0, #, {qf})
+
+	S(q0, 0) = (q0, #, D)
+	S(q0, 1) = (q0, 1, D)
+	S(q0, #) = (qf, #, D)
+
+

@@ -1,0 +1,36 @@
+2. Construir un programa Post-Turing que dado un número u en binario calcule u + 1.
+
+IF # GO TO RECHAZO
+
+[A] RIGHT                         [A] -> Vamos al final de la palabra y nos colocamos en el ultimo simbolo
+	IF 0 GOTO A
+	IF 1 GOTO A
+	LEFT
+	IF 0 GOTO B    ----> Si es un 0 el utlimo simbolo de la cadena vamos a [B] para cambiarlo por un 1 y acabar 
+	IF 1 GOTO C    ----> Si es un 1 vamos a [C] para realizar la suma en binario
+
+[B] PRINT 1                       [B] -> Si el ultimo simbolo de la cadena es 0 lo cambiamos por un 1 y se termina
+	HALT
+
+[C] PRINT 0                       [C] -> Si el ultimo simbolo de la cadena es un 1 lo cambiamos por un 0 y nos movemos a la izquierda:
+	LEFT
+	IF 0 GOTO B     ----> Si es un 0 volvemos a [B] ya que seria cambiarlo por un 1 y aceptar
+	IF # GOTO B     ----> Si es un # volvemos a [B] ya que seria poner un 1 y aceptar dado que es el fin de la cadena
+	IF 1 GOTO C     ----> Si es un 1 volvemos a [C] para poner un 0 y buscar otro 0 o un # en el que poner un 1 y acabar aceptando
+
+[RECHAZO]                         [RECHAZO] -> Si partimos con una cadena vacia no podemos hacer la suma
+
+
+
+
+EJEMPLO:
+
+Empezamos con [A] yendo al final de la palabra y leyendo el ultimo simbolo
+        |
+1 1 0 0 1 ---> Vamos a [C] (por ser un 1)
+
+      |
+1 1 0 0 0 ---> Vamos a [B] (por haber leido un 0 en [C])
+
+      |
+1 1 0 1 0 ---> Cambiamos por 1 y se acaba

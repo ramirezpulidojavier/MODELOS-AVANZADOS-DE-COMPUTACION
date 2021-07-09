@@ -1,0 +1,57 @@
+7. Construir un programa con variables que dada una cadena u ∈ {0, 1}* calcule la cadena w
+formada por los símbolos que ocupan las posiciones impares de u y en el mismo orden que aparecen en u.
+
+	|   |   |
+u = 1 0 0 1 1 
+w = 1 0 1
+
+
+IF U ENDS i GOTO IMPARESi  --> Empezamos yendo a IMPARESi 
+HALT                     --> Si es la palabra vacia hemos acabado
+
+[IMPARESi] V <- iV       --> Copiamos en V el simbolo de U
+	       U <- U-       --> Y lo eliminamos de U
+	       IF U ENDS j GOTO PARESj   --> Pasamos a copiar el simbolo par en X
+	       
+	       W <- V        --> Si U no tiene simbolos (porque la cadena es impar), pasamos el contenido de V a W y terminamos
+	       HALT
+
+[PARESj]   X <- jX      --> Copiamos en X el simbolo U
+	       U <- U-      --> Y lo eliminamos de U
+	       IF U ENDS i GOTO IMPARESi  --> Pasamos a compiar el simbolo impar en V
+	       W <- X       --> Si U no tiene simbolos (porque la cadena es par), pasamos el contenido de X en W y terminamos
+	       HALT
+
+
+EJEMPLO:
+
+u = 1 0 0 1 1
+
+-----------------
+
+V = 1
+u = 1 0 0 1
+
+X = 1
+u = 1 0 0
+
+-----------------
+
+V = 0 1
+u = 1 0
+
+X = 0 1
+u = 1
+
+-----------------
+
+V = 1 0 1
+u = 
+
+W = 1 0 1
+
+----------------
+
+
+
+
